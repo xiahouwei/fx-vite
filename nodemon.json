@@ -1,0 +1,4 @@
+{
+  "watch": ["fx-vite"],
+  "exec": "fx-vite"
+}

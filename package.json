@@ -1,0 +1,20 @@
+{
+  "name": "13_fx-vite-vue",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "dev-debug": "vite --debug *",
+    "dev-debugger": "node --inspect-brk node_modules/vite/bin/vite.js",
+    "build": "vite build",
+    "fx-dev": "fx-vite",
+    "fx-dev-debug": "fx-vite --debug *",
+    "serve": "nodemon"
+  },
+  "dependencies": {
+    "vue": "^3.1.5"
+  },
+  "devDependencies": {
+    "vite": "^1.0.0-rc.13",
+    "@vue/compiler-sfc": "^3.0.4"
+  }
+}

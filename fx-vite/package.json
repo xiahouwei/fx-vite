@@ -1,0 +1,29 @@
+{
+  "name": "fx-vite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "./bin/vite.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/compiler-dom": "^3.1.5",
+    "@vue/compiler-sfc": "^3.1.5",
+    "chalk": "^4.1.2",
+    "chokidar": "^3.5.2",
+    "debug": "^4.3.2",
+    "es-module-lexer": "^0.7.1",
+    "hash-sum": "^2.0.0",
+    "koa": "^2.13.1",
+    "lru-cache": "^6.0.0",
+    "magic-string": "^0.25.7",
+    "minimist": "^1.2.5",
+    "slash": "^2.0.0",
+    "vue": "^3.0.3",
+    "ws": "^8.0.0"
+  }
+}
