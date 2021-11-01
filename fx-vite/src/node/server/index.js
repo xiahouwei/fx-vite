@@ -1,5 +1,5 @@
 const koa = require('koa');
-const chokidar = require('chokidar'); // 文件修改侦测
+const chokidar = require('chokidar'); // 侦测文件修改插件
 const resolver = require('../resolver');
 const moduleResolvePlugin = require('./serverPluginModuleResolve');
 const moduleRewritePlugin = require('./serverPluginModuleRewrite');
@@ -11,9 +11,11 @@ const htmlRewritePlugin = require('./serverPluginHtml');
 const hmrPlugin = require('./serverPluginHmr');
 
 function createServer () {
+    // 创建koa实例
     const app = new koa();
     // 目录路径
     const root = process.cwd()
+    // 侦测文件变化
     const watcher = chokidar.watch(root, {
         ignored: ['**/node_modules/**', '**/.git/**'],
         // #610
@@ -22,7 +24,9 @@ function createServer () {
             pollInterval: 10
         }
     });
+    // 创建http服务
     const server =  resolveServer(app.callback())
+    // 声明上下文
     const context = {
         app,
         root,
@@ -31,6 +35,7 @@ function createServer () {
         resolver,
         port: 4000
     }
+    // 通过中间件传入上下文
     app.use((ctx, next) => {
         Object.assign(ctx, context)
         return next()
@@ -54,9 +59,10 @@ function createServer () {
         // 静态服务插件,返回文件
         serverStaticPlugin
     ]
+    // 注入中间件
     resolvePlugins.forEach(plugin => plugin(context))
-
-    
+  
+    // 监听端口
     const listen = server.listen.bind(server)
     server.listen = (async (port, ...args) => {
         return listen(port, ...args)
@@ -65,10 +71,9 @@ function createServer () {
         context.port = server.address().port
     })
     return server
-
-    // return app
 }
 
+// 使用koa创建一个基本的 http server
 function resolveServer (requestListener) {
     return require('http').createServer(requestListener)
 }

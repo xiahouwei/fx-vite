@@ -10,7 +10,9 @@ function hmrPlugin ({ app, watcher, server }) {
     app.use((ctx, next) => {
         return next()
     })
+    // 创建websocket服务
     const wss = new WebSocket.Server({ noServer: true })
+    // 监听浏览器vite-hmr的websocket请求
     server.on('upgrade', (req, socket, head) => {
         if (req.headers['sec-websocket-protocol'] === 'vite-hmr') {
             wss.handleUpgrade(req, socket, head, (ws) => {
@@ -18,12 +20,13 @@ function hmrPlugin ({ app, watcher, server }) {
             })
         }
     })
+    // 监听connection, 向浏览器发送connected状态
     wss.on('connection', (socket) => {
         debugHmr('ws client connected')
         socket.send(JSON.stringify({ type: 'connected' }))
     })
    
-
+    // socket发布api
     const send = function (payload) {
         const stringified = JSON.stringify(payload, null, 2)
         debugHmr(`update: ${stringified}`)

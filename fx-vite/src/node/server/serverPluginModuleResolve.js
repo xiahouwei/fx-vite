@@ -3,6 +3,7 @@ const path = require('path')
 const fsPromise = require('fs').promises
 const { resolveVue } = require('../utils/resolveVue')
 
+// 解析module
 function moduleResolvePlugin ({ app, root }) {
     app.use(async (ctx, next) => {
         // 没有匹配到/@modules 则往下执行

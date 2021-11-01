@@ -112,6 +112,7 @@ function vuePlugin ({ app, root, resolver, watcher }) {
             ctx.type = 'js'
             ctx.body = code
         }
+        
         // 处理 type=style的文件请求
         if (query.type === 'style') {
             const index = Number(query.index)

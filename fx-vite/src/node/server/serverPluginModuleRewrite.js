@@ -2,16 +2,17 @@
 const path = require('path')
 const { readBody, bareImportRE } = require("../utils") // 读取文件 和 path解析
 const { parse } = require('es-module-lexer') // es module 语法解析插件
-const MagicString = require('magic-string')
+const MagicString = require('magic-string') // 字符串改写插件
 const clientPublicPath = `/vite/client`
 
+// 改写import引入
 function rewriteImports (source, resolver) {
     let imports = parse(source)[0]
     let ms = new MagicString(source)
     if (imports.length > 0) {
         imports.forEach(item => {
             let { s, e } = item
-            // 截取es module标识
+            // 截取es module标识 import { createApp } from 'vue' => 'vue'
             let id = source.slice(s, e)
             // 匹配 开头 不是 ./ 也不是 / 这种路径
             if (bareImportRE.test(id)) {
